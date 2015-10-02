@@ -167,6 +167,68 @@ proxy.call('chrome.serial.getDevices')
 
 ---
 
+class: middle
+
+# Hack Chrome App APIs
+
+* Call Chrome App APIs from Webpage.
+
+* Launch the Chrome App from Webpage.
+
+---
+
+class: middle
+
+# Call Chrome App APIs from Webpage
+
+JavaScript
+```
+var port = chrome.runtime.connect(extensionId);
+port.postMessage(data);
+port.onMessage.addListener(function(message) {
+  console.log(message);
+});
+```
+
+manifest.json
+```
+"externally_connectable": {
+  "matches": [
+    "http://wotmaker.io/*"
+  ]
+}
+```
+
+---
+
+class: middle
+
+# Launch Chrome App from Webpage
+
+HTML
+```
+&lta id="setup" href="setup.html">&lt/a>
+```
+
+JavaScript
+```
+document.querySelector('#setup').click();
+```
+
+manifest.json
+```
+"url_handlers": {
+  "start_app": {
+    "title": "Start Chrome API Proxy App",
+    "matches": [
+      "http://wotmaker.io/setup.html"
+    ]
+  }
+}
+```
+
+---
+
 class: center, middle
 
 # [Live Demo](http://wotmaker.io)
