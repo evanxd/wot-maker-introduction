@@ -22,39 +22,36 @@ class: middle
 
 # Share Three Things
 
-* Web of Things Maker
+* Web of Things
 * WoT.JS
-* Create Web of Things Ecosystem
+* Web of Things Maker
 
 ---
 
 class: middle
 
-# [Web of Things Maker](http://wotjs.io/maker)
+# What is Web of Things
 
-## An online editor helps developers build cross-platform WoT applications faster and easier.
-
-* Only JS, No Native Code
-* No need to Setup Development Environment
-* Cross-platform Runner
+## Software architecture allows real-world objects to be part of the World Wide Web.
 
 ---
 
 class: middle
 
-# Write Once, Run Anywhere
+# IoT vs WoT
 
-## Cross-platform Runner
-* Mac OS, Linux, and Windows.
-* FxOS, Android, and iOS.
+## just like Internet and Web
+
+* WoT is the "software" layer to connect devices to the Internet.
+* IoT is the "hardward" layer to connect devices to the Internet.
 
 ---
 
-class: center, middle
+class: middle
 
-# Web of Things Maker
+# WoT  Architecture
 
-![Web of Things Maker](images/web-of-things-maker.png)
+![WoT Architecture](images/wot-architecture.png)
 
 ---
 
@@ -96,23 +93,83 @@ arduino.addEventListener('ready', function() {
 
 ---
 
-class: center, middle
+class: middle
 
-# [Demo WoT Maker](http://wotjs.io/maker)
+# [Web of Things Maker](http://wotjs.io/maker)
+
+## An online editor helps developers build cross-platform WoT applications faster and easier.
 
 ---
 
 class: middle
 
-# Create WoT Ecosystem
+# Why use Web of Things Maker?
 
-## Step 1: Community
-* Software Hackers + Hardware Makers
-* Build and share ideas with Web of Things Maker.
+* Only JS, No Native Code
+* No need to Setup Development Environment
+* Cross-platform Runner
 
-## Step 2: Partners
-* Every device has a Web driver(Web Component).
-* Every device is easy to hack and integrate each other.
+---
+
+class: middle
+
+# Write Once, Run Anywhere
+
+## Cross-platform Runner
+* Mac OS, Linux, and Windows.
+* FxOS, Android, and iOS.
+
+---
+
+class: center, middle
+
+# Web of Things Maker
+
+![Web of Things Maker](images/web-of-things-maker.png)
+
+---
+
+class: middle
+
+# How it Works
+
+![How It Works](images/how-it-works.png)
+
+---
+
+class: middle
+
+# chrome-app-api-proxy
+
+```
+proxy.call('chrome.serial.getDevices')
+.then(function(devices) {
+  var path;
+  devices.forEach(function(device) {
+    if (device.path.match('cu.usbmodem')) {
+      path = device.path;
+    }
+  });
+  var options = {
+    bitrate: 57600,
+  };
+  return proxy.call('chrome.serial.connect', path, options);
+})
+.then(function(info) {
+  var connectionId = info.connectionId;
+  // Check Arduino board is ready.
+  proxy.listenSerialPort(function(info) {
+    info.connectionId === connectionId &&
+      proxy.call('chrome.serial.send', connectionId, [144, 0, 1]);
+  });
+});
+```
+
+---
+
+class: center, middle
+
+# [Live Demo](http://wotmaker.io)
 
 ---
 
@@ -123,6 +180,12 @@ class: middle
 * Web of Things Maker: [https://github.com/wotjs/maker](https://github.com/wotjs/maker)
 * WoT.JS: [https://github.com/wotjs/wotjs.github.io](https://github.com/wotjs/wotjs.github.io)
 * Web Arduino: [https://github.com/evanxd/web-arduino](https://github.com/evanxd/web-arduino)
+
+---
+
+class: center, middle
+
+# Q&A
 
   </pre>
   <script src="http://gnab.github.io/remark/downloads/remark-0.5.7.min.js"></script>
